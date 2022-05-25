@@ -1,0 +1,83 @@
+INSERT INTO student (studentnr, roepnaam, voorletters, tussenvoegsels, achternaam, adres, postcode, woonplaats, geslacht, telefoon, geboortedatum, uitgeschreven, schoolgeld, betaald)
+VALUES ("7777", "Robert", "R", "","Robertsen","Mozartstraat 10", "1313 DE", "Almere", "M", "06-9876540","1997-02-02"."", "500", "250");
+
+SELECT studentnr, roepnaam, tussenvoegsels, achternaam
+FROM student
+WHERE LENGHT(achternaam) <= 5
+
+SELECT studentnr, achternaam, geboortedatum
+FROM student
+WHERE geboortedatum < "1998-01-01";
+
+SELECT roepnaam, tussenvoegsels, achternaam
+FROM student
+WHERE geslacht = "F";
+
+SELECT SUM(1024 * 512);
+
+SELECT roepnaam, tussenvoegsels, achternaam
+FROM student
+WHERE telefoon LIKE '06%';
+
+SELECT geslacht, COUNT(*)
+From student
+WHERE woonplaats = 'Almere'
+GROUP BY geslacht;
+
+SELECT SUM(betaald)
+FROM student
+WHERE woonplaats = 'lelystad';
+
+SELECT roepnaam, tussenvoegsels, achternaam
+FROM student
+WHERE uitgeschreven IS NULL;
+
+SELECT COUNT(*)
+FROM student
+WHERE woonplaats = 'Almere' AND geslacht = 'M';
+
+SELECT SUM(schoolgeld - betaald)
+FROM student;
+
+UPDATE student
+SET telefoon = '06-1256890'
+WHERE studentnr ='7777';
+
+UPDATE student
+SET uitgeschreven = NOW()
+WHERE studentnr ='7777';
+
+
+INSERT INTO opleiding (opleidingscode, naam, niveau)
+VALUES ("IE", "Information Engineering", "4")
+
+INSERT INTO studentopleiding (studentnr, opleidingscode, startdatum)
+VALUES ('7777", "IE",now());
+
+SELECT NOW();
+
+SELECT FLOOR(SUM(DATEDIFF(NOW(), "2016-12-19") / 365.25))
+FROM student
+WHERE studentnr ='7777';
+
+FROM student
+INNER JOIN studentopleiding 
+ON studentopleiding.studentnr = student.studentnr
+INNER JOIN opleiding
+ON opleiding.opleidingscode = studentopleiding.opleidingscode;
+WHERE opleiding.opleidingscode ="IE";
+
+SELECT roepnaam, tussenvoegsels, achternaam
+INNER JOIN studentopleiding 
+ON studentopleiding.studentnr = student.studentnr
+INNER JOIN opleiding
+ON opleiding.opleidingscode = studentopleiding.opleidingscode;
+WHERE opleiding.niveau ="4";
+
+SELECT COUNT(*)
+FROM student
+INNER JOIN studentopleiding 
+ON studentopleiding.studentnr = student.studentnr
+INNER JOIN opleiding
+ON opleiding.opleidingscode = studentopleiding.opleidingscode;
+WHERE opleiding.opleidingscode ="AO";
